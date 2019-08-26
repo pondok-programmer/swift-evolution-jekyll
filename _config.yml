@@ -3,8 +3,9 @@ email: muiz.idn@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Yuhuu!
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://swiftevolutionlist.org" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://pondok-programmer.github.io/swift-evolution-jekyll/" # the base hostname & protocol for your site, e.g. http://example.com
 theme: just-the-docs
+exclude: [Submodules]
 plugins:
   - jekyll-feed
 aux_links:
