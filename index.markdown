@@ -4,3 +4,7 @@
 
 layout: home
 ---
+
+# See what you can learn from here 🙂
+
+Lets search!
