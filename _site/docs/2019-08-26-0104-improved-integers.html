@@ -1,0 +1,730 @@
+<!DOCTYPE html> <html lang="en-US"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=Edge"> <title>SE-0104 Protocol-oriented integers - Swift Evolution List</title> <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="http://localhost:4000/assets/css/just-the-docs.css"> <script type="text/javascript" src="http://localhost:4000/assets/js/vendor/lunr.min.js"></script> <script type="text/javascript" src="http://localhost:4000/assets/js/just-the-docs.js"></script> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.6.1 --> <title>SE-0104 Protocol-oriented integers | Swift Evolution List</title> <meta name="generator" content="Jekyll v3.8.6" /> <meta property="og:title" content="SE-0104 Protocol-oriented integers" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="Yuhuu!" /> <meta property="og:description" content="Yuhuu!" /> <link rel="canonical" href="http://localhost:4000/docs/2019-08-26-0104-improved-integers.html" /> <meta property="og:url" content="http://localhost:4000/docs/2019-08-26-0104-improved-integers.html" /> <meta property="og:site_name" content="Swift Evolution List" /> <script type="application/ld+json"> {"url":"http://localhost:4000/docs/2019-08-26-0104-improved-integers.html","headline":"SE-0104 Protocol-oriented integers","description":"Yuhuu!","@type":"WebPage","@context":"https://schema.org"}</script> <!-- End Jekyll SEO tag --> </head> <body> <div class="page-wrap"> <div class="side-bar"> <div class="site-header"> <a href="http://localhost:4000" class="site-title lh-tight">Swift Evolution List</a> <button class="menu-button fs-3 js-main-nav-trigger" data-text-toggle="Hide" type="button">Menu</button> </div> <div class="navigation main-nav js-main-nav"> <nav role="navigation" aria-label="Main navigation"> <ul class="navigation-list"><li class="navigation-list-item active"><a href="http://localhost:4000/404.html" class="navigation-list-link"></a></li><li class="navigation-list-item active"><a href="http://localhost:4000/" class="navigation-list-link"></a></li><li class="navigation-list-item"><a href="http://localhost:4000/about/" class="navigation-list-link">About</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0001-keywords-as-argument-labels.html" class="navigation-list-link">SE-0001 Allow (most) keywords as argument labels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0002-remove-currying.html" class="navigation-list-link">SE-0002 Removing currying `func` declaration syntax</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0003-remove-var-parameters.html" class="navigation-list-link">SE-0003 Removing `var` from Function Parameters</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0004-remove-pre-post-inc-decrement.html" class="navigation-list-link">SE-0004 Remove the `++` and `--` operators</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0005-objective-c-name-translation.html" class="navigation-list-link">SE-0005 Better Translation of Objective-C APIs Into Swift</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0006-apply-api-guidelines-to-the-standard-library.html" class="navigation-list-link">SE-0006 Apply API Guidelines to the Standard Library</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0007-remove-c-style-for-loops.html" class="navigation-list-link">SE-0007 Remove C-style for-loops with conditions and incrementers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0008-lazy-flatmap-for-optionals.html" class="navigation-list-link">SE-0008 Add a Lazy flatMap for Sequences of Optionals #</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0009-require-self-for-accessing-instance-members.html" class="navigation-list-link">SE-0009 Require self for accessing instance members</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0010-add-staticstring-unicodescalarview.html" class="navigation-list-link">SE-0010 Add StaticString.UnicodeScalarView</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0011-replace-typealias-associated.html" class="navigation-list-link">SE-0011 Replace `typealias` keyword with `associatedtype` for associated type declarations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0012-add-noescape-to-public-library-api.html" class="navigation-list-link">SE-0012 Add `@noescape` to public library API</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0013-remove-partial-application-super.html" class="navigation-list-link">SE-0013 Remove Partial Application of Non-Final Super Methods (Swift 2.2)</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0014-constrained-AnySequence.html" class="navigation-list-link">SE-0014 Constraining `AnySequence.init`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0015-tuple-comparison-operators.html" class="navigation-list-link">SE-0015 Tuple comparison operators</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0016-initializers-for-converting-unsafe-pointers-to-ints.html" class="navigation-list-link">SE-0016 Add initializers to Int and UInt to convert from UnsafePointer and UnsafeMutablePointer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0017-convert-unmanaged-to-use-unsafepointer.html" class="navigation-list-link">SE-0017 Change `Unmanaged` to use `UnsafePointer`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0018-flexible-memberwise-initialization.html" class="navigation-list-link">SE-0018 Flexible Memberwise Initialization</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0019-package-manager-testing.html" class="navigation-list-link">SE-0019 Swift Testing</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0020-if-swift-version.html" class="navigation-list-link">SE-0020 Swift Language Version Build Configuration</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0021-generalized-naming.html" class="navigation-list-link">SE-0021 Naming Functions with Argument Labels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0022-objc-selectors.html" class="navigation-list-link">SE-0022 Referencing the Objective-C selector of a method</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0023-api-guidelines.html" class="navigation-list-link">SE-0023 API Design Guidelines</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0024-optional-value-setter.html" class="navigation-list-link">SE-0024 Optional Value Setter `??=`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0025-scoped-access-level.html" class="navigation-list-link">SE-0025 Scoped Access Level</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0026-abstract-classes-and-methods.html" class="navigation-list-link">SE-0026 Abstract classes and methods</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0027-string-from-code-units.html" class="navigation-list-link">SE-0027 Expose code unit initializers on String</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0028-modernizing-debug-identifiers.html" class="navigation-list-link">SE-0028 Modernizing Swift's Debugging Identifiers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0029-remove-implicit-tuple-splat.html" class="navigation-list-link">SE-0029 Remove implicit tuple splat behavior from function applications</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0030-property-behavior-decls.html" class="navigation-list-link">SE-0030 Property Behaviors</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0031-adjusting-inout-declarations.html" class="navigation-list-link">SE-0031 Adjusting `inout` Declarations for Type Decoration</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0032-sequencetype-find.html" class="navigation-list-link">SE-0032 Add `first(where:)` method to `Sequence`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0033-import-objc-constants.html" class="navigation-list-link">SE-0033 Import Objective-C Constants as Swift Types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0034-disambiguating-line.html" class="navigation-list-link">SE-0034 Disambiguating Line Control Statements from Debugging Identifiers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0035-limit-inout-capture.html" class="navigation-list-link">SE-0035 Limiting `inout` capture to `@noescape` contexts</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0036-enum-dot.html" class="navigation-list-link">SE-0036 Requiring Leading Dot Prefixes for Enum Instance Member Implementations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0037-clarify-comments-and-operators.html" class="navigation-list-link">SE-0037 Clarify interaction between comments & operators</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0038-swiftpm-c-language-targets.html" class="navigation-list-link">SE-0038 Package Manager C Language Target Support</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0039-playgroundliterals.html" class="navigation-list-link">SE-0039 Modernizing Playground Literals</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0040-attributecolons.html" class="navigation-list-link">SE-0040 Replacing Equal Signs with Colons For Attribute Arguments</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0041-conversion-protocol-conventions.html" class="navigation-list-link">SE-0041 Updating Protocol Naming Conventions for Conversions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0042-flatten-method-types.html" class="navigation-list-link">SE-0042 Flattening the function type of unapplied method references</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0043-declare-variables-in-case-labels-with-multiple-patterns.html" class="navigation-list-link">SE-0043 Declare variables in 'case' labels with multiple patterns </a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0044-import-as-member.html" class="navigation-list-link">SE-0044 Import as member</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0045-scan-takewhile-dropwhile.html" class="navigation-list-link">SE-0045 Add prefix(while:) and drop(while:) to the stdlib</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0046-first-label.html" class="navigation-list-link">SE-0046 Establish consistent label behavior across all parameters including first labels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0047-nonvoid-warn.html" class="navigation-list-link">SE-0047 Defaulting non-Void functions so they warn on unused results</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0048-generic-typealias.html" class="navigation-list-link">SE-0048 Generic Type Aliases</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0049-noescape-autoclosure-type-attrs.html" class="navigation-list-link">SE-0049 Move @noescape and @autoclosure to be type attributes</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0050-floating-point-stride.html" class="navigation-list-link">SE-0050 Decoupling Floating Point Strides from Generic Implementations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0051-stride-semantics.html" class="navigation-list-link">SE-0051 Conventionalizing `stride` semantics</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0052-iterator-post-nil-guarantee.html" class="navigation-list-link">SE-0052 Change IteratorType post-nil guarantee</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0053-remove-let-from-function-parameters.html" class="navigation-list-link">SE-0053 Remove explicit use of `let` from Function Parameters</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0054-abolish-iuo.html" class="navigation-list-link">SE-0054 Abolish `ImplicitlyUnwrappedOptional` type</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0055-optional-unsafe-pointers.html" class="navigation-list-link">SE-0055 Make unsafe pointer nullability explicit using Optional</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0056-trailing-closures-in-guard.html" class="navigation-list-link">SE-0056 Allow trailing closures in `guard` conditions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0057-importing-objc-generics.html" class="navigation-list-link">SE-0057 Importing Objective-C Lightweight Generics</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0058-objectivecbridgeable.html" class="navigation-list-link">SE-0058 Allow Swift types to provide custom Objective-C representations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0059-updated-set-apis.html" class="navigation-list-link">SE-0059 Update API Naming Guidelines and Rewrite Set APIs Accordingly</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0060-defaulted-parameter-order.html" class="navigation-list-link">SE-0060 Enforcing order of defaulted parameters</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0061-autoreleasepool-signature.html" class="navigation-list-link">SE-0061 Add Generic Result and Error Handling to autoreleasepool()</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0062-objc-keypaths.html" class="navigation-list-link">SE-0062 Referencing Objective-C key-paths</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0063-swiftpm-system-module-search-paths.html" class="navigation-list-link">SE-0063 SwiftPM System Module Search Paths</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0064-property-selectors.html" class="navigation-list-link">SE-0064 Referencing the Objective-C selector of property getters and setters</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0065-collections-move-indices.html" class="navigation-list-link">SE-0065 A New Model for Collections and Indices</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0066-standardize-function-type-syntax.html" class="navigation-list-link">SE-0066 Standardize function type argument syntax to require parentheses</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0067-floating-point-protocols.html" class="navigation-list-link">SE-0067 Enhanced Floating Point Protocols</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0068-universal-self.html" class="navigation-list-link">SE-0068 Expanding Swift `Self` to class members and value types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0069-swift-mutability-for-foundation.html" class="navigation-list-link">SE-0069 Mutability and Foundation Value Types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0070-optional-requirements.html" class="navigation-list-link">SE-0070 Make Optional Requirements Objective-C-only</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0071-member-keywords.html" class="navigation-list-link">SE-0071 Allow (most) keywords in member references</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0072-eliminate-implicit-bridging-conversions.html" class="navigation-list-link">SE-0072 Fully eliminate implicit bridging conversions from Swift</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0073-noescape-once.html" class="navigation-list-link">SE-0073 Marking closures as executing exactly once</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0074-binary-search.html" class="navigation-list-link">SE-0074 Implementation of Binary Search functions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0075-import-test.html" class="navigation-list-link">SE-0075 Adding a Build Configuration Import Test</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0076-copying-to-unsafe-mutable-pointer-with-unsafe-pointer-source.html" class="navigation-list-link">SE-0076 Add overrides taking an UnsafePointer source to non-destructive copying methods on UnsafeMutablePointer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0077-operator-precedence.html" class="navigation-list-link">SE-0077 Improved operator declarations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0078-rotate-algorithm.html" class="navigation-list-link">SE-0078 Implement a rotate algorithm, equivalent to std::rotate() in C++</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0079-upgrade-self-from-weak-to-strong.html" class="navigation-list-link">SE-0079 Allow using optional binding to upgrade `self` from a weak to strong reference</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0080-failable-numeric-initializers.html" class="navigation-list-link">SE-0080 Failable Numeric Conversion Initializers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0081-move-where-expression.html" class="navigation-list-link">SE-0081 Move `where` clause to end of declaration</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0082-swiftpm-package-edit.html" class="navigation-list-link">SE-0082 Package Manager Editable Packages</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0083-remove-bridging-from-dynamic-casts.html" class="navigation-list-link">SE-0083 Remove bridging conversion behavior from dynamic casts</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0084-trailing-commas.html" class="navigation-list-link">SE-0084 Allow trailing commas in parameter lists and tuples</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0085-package-manager-command-name.html" class="navigation-list-link">SE-0085 Package Manager Command Names</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0086-drop-foundation-ns.html" class="navigation-list-link">SE-0086 Drop NS Prefix in Swift Foundation</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0087-lazy-attribute.html" class="navigation-list-link">SE-0087 Rename `lazy` to `@lazy`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0088-libdispatch-for-swift3.html" class="navigation-list-link">SE-0088 Modernize libdispatch for Swift 3 naming conventions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0089-rename-string-reflection-init.html" class="navigation-list-link">SE-0089 Renaming `String.init<T>(_: T)`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0090-remove-dot-self.html" class="navigation-list-link">SE-0090 Remove `.self` and freely allow type references in expressions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0091-improving-operators-in-protocols.html" class="navigation-list-link">SE-0091 Improving operator requirements in protocols</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0092-typealiases-in-protocols.html" class="navigation-list-link">SE-0092 Typealiases in protocols and protocol extensions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0093-slice-base.html" class="navigation-list-link">SE-0093 Adding a public `base` property to slices</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0094-sequence-function.html" class="navigation-list-link">SE-0094 Add sequence(first:next:) and sequence(state:next:) to the stdlib</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0095-any-as-existential.html" class="navigation-list-link">SE-0095 Replace `protocol<P1,P2>` syntax with `P1 & P2` syntax</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0096-dynamictype.html" class="navigation-list-link">SE-0096 Converting `dynamicType` from a property to an operator</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0097-negative-attributes.html" class="navigation-list-link">SE-0097 Normalizing naming for "negative" attributes</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0098-didset-capitalization.html" class="navigation-list-link">SE-0098 Lowercase `didSet` and `willSet` for more consistent keyword casing</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0099-conditionclauses.html" class="navigation-list-link">SE-0099 Restructuring Condition Clauses</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0100-add-sequence-based-init-and-merge-to-dictionary.html" class="navigation-list-link">SE-0100 Add sequence-based initializers and merge methods to Dictionary</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0101-standardizing-sizeof-naming.html" class="navigation-list-link">SE-0101 Reconfiguring `sizeof` and related functions into a unified `MemoryLayout` struct</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0102-noreturn-bottom-type.html" class="navigation-list-link">SE-0102 Remove `@noreturn` attribute and introduce an empty `Never` type</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0103-make-noescape-default.html" class="navigation-list-link">SE-0103 Make non-escaping closures the default</a></li><li class="navigation-list-item active"><a href="http://localhost:4000/docs/2019-08-26-0104-improved-integers.html" class="navigation-list-link active">SE-0104 Protocol-oriented integers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0105-remove-where-from-forin-loops.html" class="navigation-list-link">SE-0105 Removing Where Clauses from For-In Loops</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0106-rename-osx-to-macos.html" class="navigation-list-link">SE-0106 Add a `macOS` Alias for the `OSX` Platform Configuration Test</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0107-unsaferawpointer.html" class="navigation-list-link">SE-0107 UnsafeRawPointer API</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0108-remove-assoctype-inference.html" class="navigation-list-link">SE-0108 Remove associated type inference</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0109-remove-boolean.html" class="navigation-list-link">SE-0109 Remove the `Boolean` protocol </a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0110-distingish-single-tuple-arg.html" class="navigation-list-link">SE-0110 Distinguish between single-tuple and multiple-argument function types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0111-remove-arg-label-type-significance.html" class="navigation-list-link">SE-0111 Remove type system significance of function argument labels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0112-nserror-bridging.html" class="navigation-list-link">SE-0112 Improved NSError Bridging</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0113-rounding-functions-on-floatingpoint.html" class="navigation-list-link">SE-0113 Add integral rounding functions to FloatingPoint</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0114-buffer-naming.html" class="navigation-list-link">SE-0114 Updating Buffer "Value" Names to "Header" Names</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0115-literal-syntax-protocols.html" class="navigation-list-link">SE-0115 Rename Literal Syntax Protocols</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0116-id-as-any.html" class="navigation-list-link">SE-0116 Import Objective-C `id` as Swift `Any` type</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0117-non-public-subclassable-by-default.html" class="navigation-list-link">SE-0117 Allow distinguishing between public access and public overridability</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0118-closure-parameter-names-and-labels.html" class="navigation-list-link">SE-0118 Closure Parameter Names and Labels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0119-extensions-access-modifiers.html" class="navigation-list-link">SE-0119 Remove access modifiers from extensions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0120-revise-partition-method.html" class="navigation-list-link">SE-0120 Revise `partition` Method Signature</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0121-remove-optional-comparison-operators.html" class="navigation-list-link">SE-0121 Remove `Optional` Comparison Operators</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0122-use-colons-for-subscript-type-declarations.html" class="navigation-list-link">SE-0122 Use colons for subscript declarations</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0123-disallow-value-to-optional-coercion-in-operator-arguments.html" class="navigation-list-link">SE-0123 Disallow coercion to optionals in operator arguments</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0124-bitpattern-label-for-int-initializer-objectidentfier.html" class="navigation-list-link">SE-0124 `Int.init(ObjectIdentifier)` and `UInt.init(ObjectIdentifier)` should have a `bitPattern:` label</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0125-remove-nonobjectivecbase.html" class="navigation-list-link">SE-0125 Remove `NonObjectiveCBase` and `isUniquelyReferenced`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0126-refactor-metatypes-repurpose-t-dot-self-and-mirror.html" class="navigation-list-link">SE-0126 Refactor Metatypes, repurpose `T.self` and `Mirror`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0127-cleaning-up-stdlib-ptr-buffer.html" class="navigation-list-link">SE-0127 Cleaning up stdlib Pointer and Buffer Routines</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0128-unicodescalar-failable-initializer.html" class="navigation-list-link">SE-0128 Change failable UnicodeScalar initializers to failable</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0129-package-manager-test-naming-conventions.html" class="navigation-list-link">SE-0129 Package Manager Test Naming Conventions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0130-string-initializers-cleanup.html" class="navigation-list-link">SE-0130 Replace repeating `Character` and `UnicodeScalar` forms of String.init</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0131-anyhashable.html" class="navigation-list-link">SE-0131 Add `AnyHashable` to the standard library</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0132-sequence-end-ops.html" class="navigation-list-link">SE-0132 Rationalizing Sequence end-operation names</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0133-rename-flatten-to-joined.html" class="navigation-list-link">SE-0133 Rename `flatten()` to `joined()`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0134-rename-string-properties.html" class="navigation-list-link">SE-0134 Rename two UTF8-related properties on String</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0135-package-manager-support-for-differentiating-packages-by-swift-version.html" class="navigation-list-link">SE-0135 Package Manager Support for Differentiating Packages by Swift version</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0136-memory-layout-of-values.html" class="navigation-list-link">SE-0136 Memory layout of values</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0137-avoiding-lock-in.html" class="navigation-list-link">SE-0137 Avoiding Lock-In to Legacy Protocol Designs</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0138-unsaferawbufferpointer.html" class="navigation-list-link">SE-0138 UnsafeRawBufferPointer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0139-bridge-nsnumber-and-nsvalue.html" class="navigation-list-link">SE-0139 Bridge Numeric Types to `NSNumber` and Cocoa Structs to `NSValue`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0140-bridge-optional-to-nsnull.html" class="navigation-list-link">SE-0140 Warn when `Optional` converts to `Any`, and bridge `Optional` As Its Payload Or `NSNull`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0141-available-by-swift-version.html" class="navigation-list-link">SE-0141 Availability by Swift version</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0142-associated-types-constraints.html" class="navigation-list-link">SE-0142 Permit where clauses to constrain associated types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0143-conditional-conformances.html" class="navigation-list-link">SE-0143 Conditional conformances</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0144-allow-single-dollar-sign-as-valid-identifier.html" class="navigation-list-link">SE-0144 Allow Single Dollar Sign as a Valid Identifier</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0145-package-manager-version-pinning.html" class="navigation-list-link">SE-0145 Package Manager Version Pinning</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0146-package-manager-product-definitions.html" class="navigation-list-link">SE-0146 Package Manager Product Definitions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0147-move-unsafe-initialize-from.html" class="navigation-list-link">SE-0147 Move UnsafeMutablePointer.initialize(from:) to UnsafeMutableBufferPointer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0148-generic-subscripts.html" class="navigation-list-link">SE-0148 Generic Subscripts</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0149-package-manager-top-of-tree.html" class="navigation-list-link">SE-0149 Package Manager Support for Top of Tree development</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0150-package-manager-branch-support.html" class="navigation-list-link">SE-0150 Package Manager Support for branches</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0151-package-manager-swift-language-compatibility-version.html" class="navigation-list-link">SE-0151 Package Manager Swift Language Compatibility Version</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0152-package-manager-tools-version.html" class="navigation-list-link">SE-0152 Package Manager Tools Version</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0153-compensate-for-the-inconsistency-of-nscopyings-behaviour.html" class="navigation-list-link">SE-0153 Compensate for the inconsistency of `@NSCopying`'s behaviour</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0154-dictionary-key-and-value-collections.html" class="navigation-list-link">SE-0154 Provide Custom Collections for Dictionary Keys and Values</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0155-normalize-enum-case-representation.html" class="navigation-list-link">SE-0155 Normalize Enum Case Representation</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0156-subclass-existentials.html" class="navigation-list-link">SE-0156 Class and Subtype existentials</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0157-recursive-protocol-constraints.html" class="navigation-list-link">SE-0157 Support recursive constraints on associated types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0158-package-manager-manifest-api-redesign.html" class="navigation-list-link">SE-0158 Package Manager Manifest API Redesign</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0159-fix-private-access-levels.html" class="navigation-list-link">SE-0159 Fix Private Access Levels</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0160-objc-inference.html" class="navigation-list-link">SE-0160 Limiting `@objc` inference</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0161-key-paths.html" class="navigation-list-link">SE-0161 Smart KeyPaths: Better Key-Value Coding for Swift</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0162-package-manager-custom-target-layouts.html" class="navigation-list-link">SE-0162 Package Manager Custom Target Layouts</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0163-string-revision-1.html" class="navigation-list-link">SE-0163 String Revision: Collection Conformance, C Interop, Transcoding</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0164-remove-final-support-in-protocol-extensions.html" class="navigation-list-link">SE-0164 Remove final support in protocol extensions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0165-dict.html" class="navigation-list-link">SE-0165 Dictionary & Set Enhancements</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0166-swift-archival-serialization.html" class="navigation-list-link">SE-0166 Swift Archival & Serialization</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0167-swift-encoders.html" class="navigation-list-link">SE-0167 Swift Encoders</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0168-multi-line-string-literals.html" class="navigation-list-link">SE-0168 Multi-Line String Literals</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0169-improve-interaction-between-private-declarations-and-extensions.html" class="navigation-list-link">SE-0169 Improve Interaction Between `private` Declarations and Extensions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0170-nsnumber_bridge.html" class="navigation-list-link">SE-0170 NSNumber bridging and Numeric types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0171-reduce-with-inout.html" class="navigation-list-link">SE-0171 Reduce with `inout`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0172-one-sided-ranges.html" class="navigation-list-link">SE-0172 One-sided Ranges</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0173-swap-indices.html" class="navigation-list-link">SE-0173 Add `MutableCollection.swapAt(_:_:)`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0174-filter-range-replaceable.html" class="navigation-list-link">SE-0174 Change `filter` to return an associated type</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0175-package-manager-revised-dependency-resolution.html" class="navigation-list-link">SE-0175 Package Manager Revised Dependency Resolution</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0176-enforce-exclusive-access-to-memory.html" class="navigation-list-link">SE-0176 Enforce Exclusive Access to Memory</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0177-add-clamped-to-method.html" class="navigation-list-link">SE-0177 Add clamp(to:) to the stdlib</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0178-character-unicode-view.html" class="navigation-list-link">SE-0178 Add `unicodeScalars` property to `Character`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0179-swift-run-command.html" class="navigation-list-link">SE-0179 Swift `run` Command</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0180-string-index-overhaul.html" class="navigation-list-link">SE-0180 String Index Overhaul</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0181-package-manager-cpp-language-version.html" class="navigation-list-link">SE-0181 Package Manager C/C++ Language Standard Support</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0182-newline-escape-in-strings.html" class="navigation-list-link">SE-0182 String Newline Escaping</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0183-substring-affordances.html" class="navigation-list-link">SE-0183 Substring performance affordances</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0184-unsafe-pointers-add-missing.html" class="navigation-list-link">SE-0184 Unsafe[Mutable][Raw][Buffer]Pointer: add missing methods, adjust existing labels for clarity, and remove deallocation size</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0185-synthesize-equatable-hashable.html" class="navigation-list-link">SE-0185 Synthesizing `Equatable` and `Hashable` conformance</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0186-remove-ownership-keyword-support-in-protocols.html" class="navigation-list-link">SE-0186 Remove ownership keyword support in protocols</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0187-introduce-filtermap.html" class="navigation-list-link">SE-0187 Introduce Sequence.compactMap(_:)</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0188-stdlib-index-types-hashable.html" class="navigation-list-link">SE-0188 Make Standard Library Index Types Hashable</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0189-restrict-cross-module-struct-initializers.html" class="navigation-list-link">SE-0189 Restrict Cross-module Struct Initializers</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0190-target-environment-platform-condition.html" class="navigation-list-link">SE-0190 Target environment platform condition</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0191-eliminate-indexdistance.html" class="navigation-list-link">SE-0191 Eliminate `IndexDistance` from `Collection`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0192-non-exhaustive-enums.html" class="navigation-list-link">SE-0192 Handling Future Enum Cases</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0193-cross-module-inlining-and-specialization.html" class="navigation-list-link">SE-0193 Cross-module inlining and specialization</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0194-derived-collection-of-enum-cases.html" class="navigation-list-link">SE-0194 Derived Collection of Enum Cases</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0195-dynamic-member-lookup.html" class="navigation-list-link">SE-0195 Introduce User-defined "Dynamic Member Lookup" Types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0196-diagnostic-directives.html" class="navigation-list-link">SE-0196 Compiler Diagnostic Directives</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0197-remove-where.html" class="navigation-list-link">SE-0197 Adding in-place `removeAll(where:)` to the Standard Library</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0198-playground-quicklook-api-revamp.html" class="navigation-list-link">SE-0198 Playground QuickLook API Revamp #</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0199-bool-toggle.html" class="navigation-list-link">SE-0199 Adding `toggle` to `Bool`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0200-raw-string-escaping.html" class="navigation-list-link">SE-0200 Enhancing String Literals Delimiters to Support Raw Text</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0201-package-manager-local-dependencies.html" class="navigation-list-link">SE-0201 Package Manager Local Dependencies</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0202-random-unification.html" class="navigation-list-link">SE-0202 Random Unification</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0203-rename-sequence-elements-equal.html" class="navigation-list-link">SE-0203 Rename Sequence.elementsEqual</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0204-add-last-methods.html" class="navigation-list-link">SE-0204 Add `last(where:)` and `lastIndex(where:)` Methods</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0205-withUnsafePointer-for-lets.html" class="navigation-list-link">SE-0205 `withUnsafePointer(to:_:)` and `withUnsafeBytes(of:_:)` for immutable values</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0206-hashable-enhancements.html" class="navigation-list-link">SE-0206 Hashable Enhancements</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0207-containsOnly.html" class="navigation-list-link">SE-0207 Add an `allSatisfy` algorithm to `Sequence`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0208-package-manager-system-library-targets.html" class="navigation-list-link">SE-0208 Package Manager System Library Targets</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0209-package-manager-swift-lang-version-update.html" class="navigation-list-link">SE-0209 Package Manager Swift Language Version API Update</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0210-key-path-offset.html" class="navigation-list-link">SE-0210 Add an `offset(of:)` method to `MemoryLayout`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0211-unicode-scalar-properties.html" class="navigation-list-link">SE-0211 Add Unicode Properties to `Unicode.Scalar`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0212-compiler-version-directive.html" class="navigation-list-link">SE-0212 Compiler Version Directive</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0213-literal-init-via-coercion.html" class="navigation-list-link">SE-0213 Literal initialization via coercion</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0214-DictionaryLiteral.html" class="navigation-list-link">SE-0214 Renaming the `DictionaryLiteral` type to `KeyValuePairs`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0215-conform-never-to-hashable-and-equatable.html" class="navigation-list-link">SE-0215 Conform `Never` to `Equatable` and `Hashable`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0216-dynamic-callable.html" class="navigation-list-link">SE-0216 Introduce user-defined dynamically "callable" types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0217-bangbang.html" class="navigation-list-link">SE-0217 Introducing the `!!` "Unwrap or Die" operator to the Swift Standard Library</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0218-introduce-compact-map-values.html" class="navigation-list-link">SE-0218 Introduce `compactMapValues` to Dictionary</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0219-package-manager-dependency-mirroring.html" class="navigation-list-link">SE-0219 Package Manager Dependency Mirroring</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0220-count-where.html" class="navigation-list-link">SE-0220 `count(where:)`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0221-character-properties.html" class="navigation-list-link">SE-0221 Character Properties</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0222-lazy-compactmap-sequence.html" class="navigation-list-link">SE-0222 Lazy CompactMap Sequence</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0223-array-uninitialized-initializer.html" class="navigation-list-link">SE-0223 Accessing an Array's Uninitialized Buffer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0224-ifswift-lessthan-operator.html" class="navigation-list-link">SE-0224 Support 'less than' operator in compilation conditions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0225-binaryinteger-iseven-isodd-ismultiple.html" class="navigation-list-link">SE-0225 Adding `isMultiple` to `BinaryInteger`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0226-package-manager-target-based-dep-resolution.html" class="navigation-list-link">SE-0226 Package Manager Target Based Dependency Resolution</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0227-identity-keypath.html" class="navigation-list-link">SE-0227 Identity key path</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0228-fix-expressiblebystringinterpolation.html" class="navigation-list-link">SE-0228 Fix `ExpressibleByStringInterpolation`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0229-simd.html" class="navigation-list-link">SE-0229 SIMD Vectors</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0230-flatten-optional-try.html" class="navigation-list-link">SE-0230 Flatten nested optionals resulting from 'try?'</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0231-optional-iteration.html" class="navigation-list-link">SE-0231 Optional Iteration</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0232-remove-customization-points.html" class="navigation-list-link">SE-0232 Remove Some Customization Points from the Standard Library's `Collection` Hierarchy</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0233-additive-arithmetic-protocol.html" class="navigation-list-link">SE-0233 Make `Numeric` Refine a new `AdditiveArithmetic` Protocol</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0234-remove-sequence-subsequence.html" class="navigation-list-link">SE-0234 Remove `Sequence.SubSequence`</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0235-add-result.html" class="navigation-list-link">SE-0235 Add Result to the Standard Library</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0236-package-manager-platform-deployment-settings.html" class="navigation-list-link">SE-0236 Package Manager Platform Deployment Settings</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0237-contiguous-collection.html" class="navigation-list-link">SE-0237 Introduce `withContiguous{Mutable}StorageIfAvailable` methods</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0238-package-manager-build-settings.html" class="navigation-list-link">SE-0238 Package Manager Target Specific Build Settings</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0239-codable-range.html" class="navigation-list-link">SE-0239 Add Codable conformance to Range types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0240-ordered-collection-diffing.html" class="navigation-list-link">SE-0240 Ordered Collection Diffing</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0241-string-index-explicit-encoding-offset.html" class="navigation-list-link">SE-0241 Deprecate String Index Encoded Offsets</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0242-default-values-memberwise.html" class="navigation-list-link">SE-0242 Synthesize default values for the memberwise initializer</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0243-codepoint-and-character-literals.html" class="navigation-list-link">SE-0243 Integer-convertible character literals</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0244-opaque-result-types.html" class="navigation-list-link">SE-0244 Opaque Result Types</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0245-array-uninitialized-initializer.html" class="navigation-list-link">SE-0245 Add an Array Initializer with Access to Uninitialized Storage</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0246-mathable.html" class="navigation-list-link">SE-0246 Generic Math(s) Functions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0247-contiguous-strings.html" class="navigation-list-link">SE-0247 Contiguous Strings</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0248-string-gaps-missing-apis.html" class="navigation-list-link">SE-0248 String Gaps and Missing APIs</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0249-key-path-literal-function-expressions.html" class="navigation-list-link">SE-0249 Key Path Expressions as Functions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0250-swift-style-guide-and-formatter.html" class="navigation-list-link">SE-0250 Swift Code Style Guidelines and Formatter</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0251-simd-additions.html" class="navigation-list-link">SE-0251 SIMD additions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0252-keypath-dynamic-member-lookup.html" class="navigation-list-link">SE-0252 Key Path Member Lookup</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0253-callable.html" class="navigation-list-link">SE-0253 Introduce callables </a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0254-static-subscripts.html" class="navigation-list-link">SE-0254 Static and class subscripts</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0255-omit-return.html" class="navigation-list-link">SE-0255 Implicit returns from single-expression functions</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0256-contiguous-collection.html" class="navigation-list-link">SE-0256 Introduce `{Mutable}ContiguousCollection` protocol</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-0257-elide-comma.html" class="navigation-list-link">SE-0257 Eliding commas from multiline expression lists</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/2019-08-26-xxxx-synthesize-computed-property.html" class="navigation-list-link"> Feature name</a></li></ul> </nav> </div> <footer class="site-footer"> <p class="text-small text-grey-dk-000 mb-4">This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.</p> </footer> </div> <div class="main-content-wrap js-main-content" tabindex="0"> <div class="main-content"> <div class="page-header js-page-header"> <div class="search"> <div class="search-input-wrap"> <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search Swift Evolution List" aria-label="Search Swift Evolution List" autocomplete="off"> <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg> </div> <div class="js-search-results search-results-wrap"></div> </div> <ul class="list-style-none text-small aux-nav"> <li class="d-inline-block my-0"><a href="//github.com/pondok-programmer/swift-evolution-jekyll">Swift Evolution List</a></li> </ul> </div> <div class="page"> <div id="main-content" class="page-content" role="main"> <h1 id="protocol-oriented-integers"> <a href="#protocol-oriented-integers" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Protocol-oriented integers </h1> <ul> <li>Proposal: <a href="0104-improved-integers.md">SE-0104</a></li> <li>Authors: <a href="https://github.com/dabrahams">Dave Abrahams</a>, <a href="https://github.com/moiseev">Maxim Moiseev</a></li> <li>Review Manager: <a href="https://github.com/airspeedswift">Ben Cohen</a></li> <li>Status: <strong>Implemented (Swift 4)</strong></li> <li>Bug: <a href="https://bugs.swift.org/browse/SR-3196">SR-3196</a></li> <li>Previous Revisions: <a href="https://github.com/apple/swift-evolution/blob/0440700fc555a6c72abb4af807c8b79fb1bec592/proposals/0104-improved-integers.md">1</a>, <a href="https://github.com/apple/swift-evolution/blob/957ab545e05adb94507792e7871b38e34b56a0a5/proposals/0104-improved-integers.md">2</a>, <a href="https://github.com/apple/swift-evolution/blob/80f57a6b7645126fe0220dcb91c19565e447d5d8/proposals/0104-improved-integers.md">3</a></li> <li>Discussion on swift-evolution: <a href="https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20170109/030191.html">here</a>.</li> <li>Decision notes: <a href="https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20170227/033372.html">Rationale</a></li> </ul> <h2 id="introduction"> <a href="#introduction" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Introduction </h2> <p>This proposal cleans up Swifts integer APIs and makes them more useful for generic programming.</p> <p>The language has evolved in ways that affect integers APIs since the time the original proposal was approved for Swift 3. We also attempted to implement the proposed model in the standard library and found that some essential APIs were missing, whereas others could be safely removed.</p> <p>Major changes to the APIs introduced by this revision are listed in a <a href="#whats-new-in-this-revision">dedicated section</a>.</p> <h2 id="motivation"> <a href="#motivation" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Motivation </h2> <p>Swift’s integer protocols don’t currently provide a suitable basis for generic programming. See <a href="http://blog.krzyzanowskim.com/2015/03/01/swift_madness_of_generic_integer/">this blog post</a> for an example of an attempt to implement a generic algorithm over integers.</p> <p>The way the <code class="highlighter-rouge">IntegerArithmetic</code> protocol is defined, it does not generalize to floating point numbers and also slows down compilation by requiring every concrete type to provide an implementation of arithmetic operators, thus polluting the overload set.</p> <p>Converting from one integer type to another is performed using the concept of the ‘maximum width integer’ (see <code class="highlighter-rouge">MaxInt</code>), which is an artificial limitation. The very existence of <code class="highlighter-rouge">MaxInt</code> makes it unclear what to do should someone implement <code class="highlighter-rouge">Int256</code>, for example.</p> <p>Another annoying problem is the inability to use integers of different types in comparison and bit-shift operations. For example, the following snippets won’t compile:</p><pre><code class="language-Swift">var x: Int8 = 42
+let y = 1
+let z = 0
+
+x &lt;&lt;= y   // error: binary operator '&lt;&lt;=' cannot be applied to operands of type 'Int8' and 'Int'
+if x &gt; z { ... }  // error: binary operator '&gt;' cannot be applied to operands of type 'Int8' and 'Int'
+</code></pre><p>Currently, bit-shifting a negative number of (or too many) bits causes a trap on some platforms, which makes low-level bit manipulations needlessly dangerous and unpredictable.</p> <p>Finally, the current design predates many of the improvements that came since Swift 1, and hasn’t been revised since then.</p> <h2 id="proposed-solution"> <a href="#proposed-solution" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Proposed solution </h2> <p>We propose a new model that does not have above mentioned problems and is more easily extensible.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                +-------------+   +-------------+
+        +------&gt;+   Numeric   |   | Comparable  |
+        |       |   (+,-,*)   |   | (==,&lt;,&gt;,...)|
+        |       +------------++   +---+---------+
+        |                     ^       ^
++-------+------------+        |       |
+|    SignedNumeric   |      +-+-------+-----------+
+|     (unary -)      |      |    BinaryInteger    |
++------+-------------+      |(words,%,bitwise,...)|
+       ^                    ++---+-----+----------+
+       |         +-----------^   ^     ^---------------+
+       |         |               |                     |
++------+---------++    +---------+---------------+  +--+----------------+
+|  SignedInteger  |    |  FixedWidthInteger      |  |  UnsignedInteger  |
+|                 |    |(endianness,overflow,...)|  |                   |
++---------------+-+    +-+--------------------+--+  +-+-----------------+
+                ^        ^                    ^       ^
+                |        |                    |       |
+                |        |                    |       |
+               ++--------+-+                +-+-------+-+
+               |Int family |-+              |UInt family|-+
+               +-----------+ |              +-----------+ |
+                 +-----------+                +-----------+
+</code></pre></div></div> <p>There are several benefits provided by this model over the old one:</p> <ul> <li> <p>It allows mixing integer types in generic functions.</p> <p>The possibility to initialize instances of any concrete integer type with values of any other concrete integer type enables writing functions that operate on more than one type conforming to <code class="highlighter-rouge">BinaryInteger</code>, such as heterogeneous comparisons or bit shifts, described later.</p> </li> <li> <p>It removes the overload resolution overhead.</p> <p>Arithmetic and bitwise operations can now be defined as generic operators on protocols. This approach significantly reduces the number of overloads for those operations, which used to be defined for every single concrete integer type.</p> </li> <li> <p>It enables protocol sharing between integer and floating point types.</p> <p>Note the exclusion of the <code class="highlighter-rouge">%</code> operation from <code class="highlighter-rouge">Numeric</code>. Its behavior for floating point numbers is sufficiently different from the one for integers that using it in generic context would lead to confusion. The <code class="highlighter-rouge">FloatingPoint</code> protocol introduced by <a href="0067-floating-point-protocols.md">SE-0067</a> should now refine <code class="highlighter-rouge">SignedNumeric</code>.</p> </li> <li> <p>It makes future extensions possible.</p> <p>The proposed model eliminates the ‘largest integer type’ concept previously used to interoperate between integer types (see <code class="highlighter-rouge">toIntMax</code> in the current model) and instead provides access to machine words. It also introduces the <code class="highlighter-rouge">multipliedFullWidth(by:)</code>, <code class="highlighter-rouge">dividingFullWidth(_:)</code>, and <code class="highlighter-rouge">quotientAndRemainder</code> methods. Together these changes can be used to provide an efficient implementation of bignums that would be hard to achieve otherwise.</p> </li> </ul> <p>The implementation of proposed model in the standard library is available <a href="https://github.com/apple/swift/tree/new-integer-protocols">in the new-integer-protocols branch</a>.</p> <h3 id="a-note-on-bit-shifts"> <a href="#a-note-on-bit-shifts" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> A note on bit shifts </h3> <p>This proposal introduces the concepts of <em>smart shifts</em> and <em>masking shifts</em>.</p> <p>The semantics of shift operations are <a href="http://llvm.org/docs/LangRef.html#bitwise-binary-operations">often undefined</a> in under- or over-shift cases. <em>Smart shifts</em>, implemented by <code class="highlighter-rouge">&gt;&gt;</code> and <code class="highlighter-rouge">&lt;&lt;</code>, are designed to address this problem and always behave in a well defined way, as shown in the examples below:</p> <ul> <li> <p><code class="highlighter-rouge">x &lt;&lt; -2</code> is equivalent to <code class="highlighter-rouge">x &gt;&gt; 2</code></p> </li> <li> <p><code class="highlighter-rouge">(1 as UInt8) &gt;&gt; 42</code> will evaluate to <code class="highlighter-rouge">0</code></p> </li> <li> <p><code class="highlighter-rouge">(-128 as Int8) &gt;&gt; 42</code> will evaluate to <code class="highlighter-rouge">0xff</code> or <code class="highlighter-rouge">-1</code></p> </li> </ul> <p>In most scenarios, the right hand operand is a literal constant, and branches for handling under- and over-shift cases can be optimized away. For other cases, this proposal provides <em>masking shifts</em>, implemented by <code class="highlighter-rouge">&amp;&gt;&gt;</code> and <code class="highlighter-rouge">&amp;&lt;&lt;</code>. A masking shift logically preprocesses the right hand operand by masking its bits to produce a value in the range <code class="highlighter-rouge">0...(x-1)</code> where <code class="highlighter-rouge">x</code> is the number of bits in the left hand operand. On most architectures this masking is already performed by the CPU’s shift instructions and has no cost. Both kinds of shift avoid undefined behavior and produce uniform semantics across architectures.</p> <h2 id="detailed-design"> <a href="#detailed-design" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Detailed design </h2> <h3 id="whats-new-in-this-revision"> <a href="#whats-new-in-this-revision" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> What’s new in this revision </h3> <ul> <li> <p>Shift operators were reorganized (<a href="https://github.com/apple/swift/pull/11044">pull request</a>)</p> <ul> <li>Masking shift operators were moved from <code class="highlighter-rouge">BinaryInteger</code> to <code class="highlighter-rouge">FixedWidthInteger</code>.</li> <li>Non-masking shift operators were moved from <code class="highlighter-rouge">FixedWidthInteger</code> to <code class="highlighter-rouge">BinaryInteger</code>.</li> </ul> <p><strong>Rationale:</strong> attempts to implement masking shifts for arbitrary-precision integers have failed because the <a href="https://gist.github.com/xwu/d68baefaae9e9291d2e65bd12ad51be2#semantics-of-masking-shifts-for-arbitrary-precision-integers">semantics aren’t clear</a>. Attempts to clarify the definition of the semantics of masking shift for <code class="highlighter-rouge">BinaryInteger</code> have failed, indicating that the operation doesn’t actually make sense outside of <code class="highlighter-rouge">FixedWidthInteger</code>.</p> </li> <li> <p><code class="highlighter-rouge">ArithmeticOverflow</code> was removed in favor of using a simple <code class="highlighter-rouge">Bool</code>.</p> <p><strong>Rationale:</strong> the enum <a href="https://gist.github.com/xwu/d68baefaae9e9291d2e65bd12ad51be2#arithmeticoverflow">proves to have poor ergonomics</a>. It only appears as part of a result tuple, where a label already helps counteract the readability deficit usually caused by returning an un-labeled <code class="highlighter-rouge">Bool</code>.</p> </li> <li> <p><code class="highlighter-rouge">BinaryInteger</code>’s initializers from floating point values were changed from:</p> <div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">init</span><span class="p">?</span><span class="o">&lt;</span><span class="kt">T</span> <span class="p">:</span> <span class="kt">FloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">exactly</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+  <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span> <span class="p">:</span> <span class="kt">FloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+</code></pre></div> </div> <p>to:</p> <div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">init</span><span class="p">?</span><span class="o">&lt;</span><span class="kt">T</span> <span class="p">:</span> <span class="kt">BinaryFloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">exactly</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+  <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span> <span class="p">:</span> <span class="kt">BinaryFloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span>
+</code></pre></div> </div> <p><strong>Rationale:</strong> Attempts to implement these initializers for arbitrary models of <code class="highlighter-rouge">FloatingPoint</code> have failed (see <a href="https://github.com/apple/swift/blob/826f8daf4a25657965f65cbb7343e751c76fe2e1/stdlib/public/core/DoubleWidth.swift.gyb#L100-L106">here</a> and <a href="https://github.com/apple/swift/blob/826f8daf4a25657965f65cbb7343e751c76fe2e1/test/Prototypes/BigInt.swift#L145-L151">here</a>) whereas they are clearly <a href="https://github.com/apple/swift/blob/826f8daf4a25657965f65cbb7343e751c76fe2e1/stdlib/public/core/DoubleWidth.swift.gyb#L108-L159">implementable</a> for models of <code class="highlighter-rouge">BinaryFloatingPoint</code>, suggesting that the operation doesn’t actually make sense outside of <code class="highlighter-rouge">BinaryFloatingPoint</code>.</p> </li> <li> <p><code class="highlighter-rouge">BinaryInteger</code>’s <code class="highlighter-rouge">init(extendingOrTruncating:)</code> was renamed to <code class="highlighter-rouge">init(truncatingIfNeeded:)</code></p> <p><strong>Rationale:</strong> <code class="highlighter-rouge">extendingOrTruncating</code> emphasizes a part of the semantics (“extending”) that is lossless and thus doesn’t warrant the implied warning of an argument label. The two use cases for this initializer are intentional truncation and optimizing out range checks that are known by the programmer to be un-needed. Both these cases are better served by <code class="highlighter-rouge">truncatingIfNeeded</code>.</p> </li> </ul> <h3 id="protocols"> <a href="#protocols" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Protocols </h3> <h4 id="numeric"> <a href="#numeric" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> <code class="highlighter-rouge">Numeric</code> </h4> <p>The <code class="highlighter-rouge">Numeric</code> protocol declares binary arithmetic operators – such as <code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">-</code>, and <code class="highlighter-rouge">*</code> — and their mutating counterparts.</p> <p>It provides a suitable basis for arithmetic on scalars such as integers and floating point numbers.</p> <p>Both mutating and non-mutating operations are declared in the protocol, however only the mutating ones are required, as default implementations of the non-mutating ones are provided by a protocol extension.</p> <p>The <code class="highlighter-rouge">Magnitude</code> associated type is able to hold the absolute value of any possible value of <code class="highlighter-rouge">Self</code>. Concrete types do not have to provide a type alias for it, as it can be inferred from the <code class="highlighter-rouge">magnitude</code> property. This property can be useful in operations that are simpler to implement in terms of unsigned values, for example, printing a value of an integer, which is just printing a ‘-‘ character in front of an absolute value.</p> <p>Please note that for ordinary work, the <code class="highlighter-rouge">magnitude</code> property <strong>should not</strong> be preferred to the <code class="highlighter-rouge">abs(_)</code> function, whose return value is of the same type as its argument.</p><pre><code class="language-Swift">public protocol Numeric : Equatable, ExpressibleByIntegerLiteral {
+  /// Creates a new instance from the given integer, if it can be represented
+  /// exactly.
+  ///
+  /// If the value passed as `source` is not representable exactly, the result
+  /// is `nil`. In the following example, the constant `x` is successfully
+  /// created from a value of `100`, while the attempt to initialize the
+  /// constant `y` from `1_000` fails because the `Int8` type can represent
+  /// `127` at maximum:
+  ///
+  ///     let x = Int8(exactly: 100)
+  ///     // x == Optional(100)
+  ///     let y = Int8(exactly: 1_000)
+  ///     // y == nil
+  ///
+  /// - Parameter source: A BinaryInteger value to convert to an integer.
+  init?&lt;T : BinaryInteger&gt;(exactly source: T)
+
+  /// A type that can represent the absolute value of any possible value of the
+  /// conforming type.
+  associatedtype Magnitude : Numeric, Comparable
+
+  /// The magnitude of this value.
+  ///
+  /// For any numeric value `x`, `x.magnitude` is the absolute value of `x`.
+  /// You can use the `magnitude` property in operations that are simpler to
+  /// implement in terms of unsigned values, such as printing the value of an
+  /// integer, which is just printing a '-' character in front of an absolute
+  /// value.
+  ///
+  ///     let x = -200
+  ///     // x.magnitude == 200
+  ///
+  /// The global `abs(_:)` function provides more familiar syntax when you need
+  /// to find an absolute value. In addition, because `abs(_:)` always returns
+  /// a value of the same type, even in a generic context, using the function
+  /// instead of the `magnitude` property is encouraged.
+  ///
+  /// - SeeAlso: `abs(_:)`
+  var magnitude: Magnitude { get }
+
+  /// Returns the sum of the two given values.
+  ///
+  /// The sum of `lhs` and `rhs` must be representable in the same type. In the
+  /// following example, the result of `100 + 200` is greater than the maximum
+  /// representable `Int8` value:
+  ///
+  ///     let x: Int8 = 10 + 21
+  ///     // x == 31
+  ///     let y: Int8 = 100 + 121
+  ///     // Overflow error
+  static func +(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Adds the given value to this value in place.
+  ///
+  /// For example:
+  ///
+  ///     var x = 15
+  ///     x += 7
+  ///     // x == 22
+  static func +=(_ lhs: inout Self, rhs: Self)
+
+  /// Returns the difference of the two given values.
+  ///
+  /// The difference of `lhs` and `rhs` must be representable in the same type.
+  /// In the following example, the result of `10 - 21` is less than zero, the
+  /// minimum representable `UInt` value:
+  ///
+  ///     let x: UInt = 21 - 10
+  ///     // x == 11
+  ///     let y: UInt = 10 - 21
+  ///     // Overflow error
+  static func -(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Subtracts the given value from this value in place.
+  ///
+  /// For example:
+  ///
+  ///     var x = 15
+  ///     x -= 7
+  ///     // x == 8
+  static func -=(_ lhs: inout Self, rhs: Self)
+
+  /// Returns the product of the two given values.
+  ///
+  /// The product of `lhs` and `rhs` must be representable in the same type. In
+  /// the following example, the result of `10 * 50` is greater than the
+  /// maximum representable `Int8` value.
+  ///
+  ///     let x: Int8 = 10 * 5
+  ///     // x == 50
+  ///     let y: Int8 = 10 * 50
+  ///     // Overflow error
+  static func *(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Multiples this value by the given value in place.
+  ///
+  /// For example:
+  ///
+  ///     var x = 15
+  ///     x *= 7
+  ///     // x == 105
+  static func *=(_ lhs: inout Self, rhs: Self)
+}
+
+extension Numeric {
+  public static prefix func + (x: Self) -&gt; Self {
+    return x
+  }
+}
+</code></pre><h4 id="signednumeric"> <a href="#signednumeric" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> <code class="highlighter-rouge">SignedNumeric</code> </h4> <p>The <code class="highlighter-rouge">SignedNumeric</code> protocol is for numbers that can be negated.</p><pre><code class="language-Swift">public protocol SignedNumeric : Numeric {
+  /// Returns the additive inverse of this value.
+  ///
+  ///     let x = 21
+  ///     let y = -x
+  ///     // y == -21
+  ///
+  /// - Returns: The additive inverse of this value.
+  ///
+  /// - SeeAlso: `negate()`
+  static prefix func - (_ operand: Self) -&gt; Self
+
+  /// Replaces this value with its additive inverse.
+  ///
+  /// The following example uses the `negate()` method to negate the value of
+  /// an integer `x`:
+  ///
+  ///     var x = 21
+  ///     x.negate()
+  ///     // x == -21
+  ///
+  /// - SeeAlso: The unary minus operator (`-`).
+  mutating func negate()
+}
+
+extension SignedNumeric {
+  public static prefix func - (_ operand: Self) -&gt; Self {
+    var result = operand
+    result.negate()
+    return result
+  }
+
+  public mutating func negate() {
+    self = 0 - self
+  }
+}
+</code></pre><h4 id="binaryinteger"> <a href="#binaryinteger" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> <code class="highlighter-rouge">BinaryInteger</code> </h4> <p>The <code class="highlighter-rouge">BinaryInteger</code> protocol is the basis for all the integer types provided by the standard library.</p> <p>This protocol adds a few new initializers. Two of them allow to create integers from floating point numbers, others support construction from instances of any type conforming to <code class="highlighter-rouge">BinaryInteger</code>, using different strategies:</p> <ul> <li> <p>Initialize <code class="highlighter-rouge">Self</code> with the value, provided that the value is representable. The precondition should be satisfied by the caller.</p> </li> <li> <p>Extend or truncate the value to fit into <code class="highlighter-rouge">Self</code></p> </li> <li> <p>Clamp the value to the representable range of <code class="highlighter-rouge">Self</code></p> </li> </ul> <p><code class="highlighter-rouge">BinaryInteger</code> also declares bitwise and shift operators.</p><pre><code class="language-Swift">public protocol BinaryInteger :
+  Comparable, Hashable, Numeric, CustomStringConvertible, Strideable {
+
+  associatedtype Words : Collection // where Iterator.Element == UInt
+
+  /// A Boolean value indicating whether this type is a signed integer type.
+  ///
+  /// *Signed* integer types can represent both positive and negative values.
+  /// *Unsigned* integer types can represent only nonnegative values.
+  static var isSigned: Bool { get }
+
+  /// Creates an integer from the given floating-point value, if it can be
+  /// represented exactly.
+  ///
+  /// If the value passed as `source` is not representable exactly, the result
+  /// is `nil`. In the following example, the constant `x` is successfully
+  /// created from a value of `21.0`, while the attempt to initialize the
+  /// constant `y` from `21.5` fails:
+  ///
+  ///     let x = Int(exactly: 21.0)
+  ///     // x == Optional(21)
+  ///     let y = Int(exactly: 21.5)
+  ///     // y == nil
+  ///
+  /// - Parameter source: A floating-point value to convert to an integer.
+  init?&lt;T : BinaryFloatingPoint&gt;(exactly source: T)
+
+  /// Creates an integer from the given floating-point value, truncating any
+  /// fractional part.
+  ///
+  /// Truncating the fractional part of `source` is equivalent to rounding
+  /// toward zero.
+  ///
+  ///     let x = Int(21.5)
+  ///     // x == 21
+  ///     let y = Int(-21.5)
+  ///     // y == -21
+  ///
+  /// If `source` is outside the bounds of this type after truncation, a
+  /// runtime error may occur.
+  ///
+  ///     let z = UInt(-21.5)
+  ///     // Error: ...the result would be less than UInt.min
+  ///
+  /// - Parameter source: A floating-point value to convert to an integer.
+  ///   `source` must be representable in this type after truncation.
+  init&lt;T : BinaryFloatingPoint&gt;(_ source: T)
+
+  /// Creates an new instance from the given integer.
+  ///
+  /// If the value passed as `source` is not representable in this type, a
+  /// runtime error may occur.
+  ///
+  ///     let x = -500 as Int
+  ///     let y = Int32(x)
+  ///     // y == -500
+  ///
+  ///     // -500 is not representable as a 'UInt32' instance
+  ///     let z = UInt32(x)
+  ///     // Error
+  ///
+  /// - Parameter source: An integer to convert. `source` must be representable
+  ///   in this type.
+  init&lt;T : BinaryInteger&gt;(_ source: T)
+
+  /// Creates a new instance from the bit pattern of the given instance by
+  /// sign-extending or truncating to fit this type.
+  ///
+  /// When the bit width of `T` (the type of `source`) is equal to or greater
+  /// than this type's bit width, the result is the truncated
+  /// least-significant bits of `source`. For example, when converting a
+  /// 16-bit value to an 8-bit type, only the lower 8 bits of `source` are
+  /// used.
+  ///
+  ///     let p: Int16 = -500
+  ///     // 'p' has a binary representation of 11111110_00001100
+  ///     let q = Int8(truncatingIfNeeded: p)
+  ///     // q == 12
+  ///     // 'q' has a binary representation of 00001100
+  ///
+  /// When the bit width of `T` is less than this type's bit width, the result
+  /// is *sign-extended* to fill the remaining bits. That is, if `source` is
+  /// negative, the result is padded with ones; otherwise, the result is
+  /// padded with zeros.
+  ///
+  ///     let u: Int8 = 21
+  ///     // 'u' has a binary representation of 00010101
+  ///     let v = Int16(truncatingIfNeeded: u)
+  ///     // v == 21
+  ///     // 'v' has a binary representation of 00000000_00010101
+  ///
+  ///     let w: Int8 = -21
+  ///     // 'w' has a binary representation of 11101011
+  ///     let x = Int16(truncatingIfNeeded: w)
+  ///     // x == -21
+  ///     // 'x' has a binary representation of 11111111_11101011
+  ///     let y = UInt16(truncatingIfNeeded: w)
+  ///     // y == 65515
+  ///     // 'y' has a binary representation of 11111111_11101011
+  ///
+  /// - Parameter source: An integer to convert to this type.
+  init&lt;T : BinaryInteger&gt;(truncatingIfNeeded source: T)
+
+  /// Creates a new instance with the representable value that's closest to the
+  /// given integer.
+  ///
+  /// If the value passed as `source` is greater than the maximum representable
+  /// value in this type, the result is the type's `max` value. If `source` is
+  /// less than the smallest representable value in this type, the result is
+  /// the type's `min` value.
+  ///
+  /// In this example, `x` is initialized as an `Int8` instance by clamping
+  /// `500` to the range `-128...127`, and `y` is initialized as a `UInt`
+  /// instance by clamping `-500` to the range `0...UInt.max`.
+  ///
+  ///     let x = Int8(clamping: 500)
+  ///     // x == 127
+  ///     // x == Int8.max
+  ///
+  ///     let y = UInt(clamping: -500)
+  ///     // y == 0
+  ///
+  /// - Parameter source: An integer to convert to this type.
+  init&lt;T : BinaryInteger&gt;(clamping source: T)
+
+  /// The collection of words in two's complement representation of the value,
+  /// from the least significant to most.
+  var words: Words { get }
+
+  /// The number of bits in the current binary representation of this value.
+  ///
+  /// This property is a constant for instances of fixed-width integer
+  /// types.
+  var bitWidth : Int { get }
+
+  /// The number of trailing zeros in this value's binary representation.
+  ///
+  /// For example, in a fixed-width integer type with a `bitWidth` value of 8,
+  /// the number -8 has three trailing zeros.
+  ///
+  ///     let x = Int8(bitPattern: 0b1111_1000)
+  ///     // x == -8
+  ///     // x.trailingZeroBits == 3
+  var trailingZeroBits: Int { get }
+
+
+  /// Returns the quotient of dividing the first value by the second.
+  ///
+  /// For integer types, any remainder of the division is discarded.
+  ///
+  ///     let x = 21 / 5
+  ///     // x == 4
+  static func /(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Divides this value by the given value in place.
+  ///
+  /// For example:
+  ///
+  ///     var x = 15
+  ///     x /= 7
+  ///     // x == 2
+  static func /=(_ lhs: inout Self, rhs: Self)
+
+  /// Returns the remainder of dividing the first value by the second.
+  ///
+  /// The result has the same sign as `lhs` and is less than `rhs.magnitude`.
+  ///
+  ///     let x = 22 % 5
+  ///     // x == 2
+  ///     let y = 22 % -5
+  ///     // y == 2
+  ///     let z = -22 % -5
+  ///     // z == -2
+  ///
+  /// - Parameters:
+  ///   - lhs: The value to divide.
+  ///   - rhs: The value to divide `lhs` by. `rhs` must not be zero.
+  static func %(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Replaces this value with the remainder of itself divided by the given
+  /// value. For example:
+  ///
+  ///     var x = 15
+  ///     x %= 7
+  ///     // x == 1
+  ///
+  /// - Parameter rhs: The value to divide this value by. `rhs` must not be
+  ///   zero.
+  ///
+  /// - SeeAlso: `remainder(dividingBy:)`
+  static func %=(_ lhs: inout Self, _ rhs: Self)
+
+  /// Returns the inverse of the bits set in the argument.
+  ///
+  /// The bitwise NOT operator (`~`) is a prefix operator that returns a value
+  /// in which all the bits of its argument are flipped: Bits that are `1` in
+  /// the argument are `0` in the result, and bits that are `0` in the argument
+  /// are `1` in the result. This is equivalent to the inverse of a set. For
+  /// example:
+  ///
+  ///     let x: UInt8 = 5        // 0b00000101
+  ///     let notX = ~x           // 0b11111010
+  ///
+  /// Performing a bitwise NOT operation on 0 returns a value with every bit
+  /// set to `1`.
+  ///
+  ///     let allOnes = ~UInt8.min   // 0b11111111
+  ///
+  /// - Complexity: O(1).
+  static prefix func ~ (_ x: Self) -&gt; Self
+
+  /// Returns the result of performing a bitwise AND operation on this value
+  /// and the given value.
+  ///
+  /// A bitwise AND operation results in a value that has each bit set to `1`
+  /// where *both* of its arguments have that bit set to `1`. For example:
+  ///
+  ///     let x: UInt8 = 5          // 0b00000101
+  ///     let y: UInt8 = 14         // 0b00001110
+  ///     let z = x &amp; y             // 0b00000100
+  static func &amp;(_ lhs: Self, _ rhs: Self) -&gt; Self
+  static func &amp;=(_ lhs: inout Self, _ rhs: Self)
+
+  /// Returns the result of performing a bitwise OR operation on this value and
+  /// the given value.
+  ///
+  /// A bitwise OR operation results in a value that has each bit set to `1`
+  /// where *one or both* of its arguments have that bit set to `1`. For
+  /// example:
+  ///
+  ///     let x: UInt8 = 5          // 0b00000101
+  ///     let y: UInt8 = 14         // 0b00001110
+  ///     let z = x | y             // 0b00001111
+  static func |(_ lhs: Self, _ rhs: Self) -&gt; Self
+  static func |=(_ lhs: inout Self, _ rhs: Self)
+
+  /// Returns the result of performing a bitwise XOR operation on this value
+  /// and the given value.
+  ///
+  /// A bitwise XOR operation, also known as an exclusive OR operation, results
+  /// in a value that has each bit set to `1` where *one or the other but not
+  /// both* of its arguments had that bit set to `1`. For example:
+  ///
+  ///     let x: UInt8 = 5          // 0b00000101
+  ///     let y: UInt8 = 14         // 0b00001110
+  ///     let z = x ^ y             // 0b00001011
+  static func ^(_ lhs: Self, _ rhs: Self) -&gt; Self
+  static func ^=(_ lhs: inout Self, _ rhs: Self)
+
+  /// Returns the result of shifting this value's binary representation the
+  /// specified number of digits to the right.
+  static func &gt;&gt;&lt;RHS: BinaryInteger&gt;(_ lhs: Self, _ rhs: RHS) -&gt; Self
+
+  /// Stores the result of shifting a value's binary representation the
+  /// specified number of digits to the right in the left-hand-side variable.
+  static func &gt;&gt;=&lt;RHS: BinaryInteger&gt;(_ lhs: inout Self, _ rhs: RHS)
+
+  /// Returns the result of shifting a value's binary representation the
+  /// specified number of digits to the left.
+  static func &lt;&lt; &lt;RHS: BinaryInteger&gt;(_ lhs: Self, _ rhs: RHS) -&gt; Self
+
+  /// Stores the result of shifting a value's binary representation the
+  /// specified number of digits to the left in the left-hand-side variable
+  static func &lt;&lt;= &lt;RHS: BinaryInteger&gt;(_ lhs: inout Self, _ rhs: RHS)
+
+  /// Returns the quotient and remainder of this value divided by the given
+  /// value.
+  ///
+  /// Use this method to calculate the quotient and remainder of a division at
+  /// the same time.
+  ///
+  ///     let x = 1_000_000
+  ///     let (q, r) = x.quotientAndRemainder(dividingBy: 933)
+  ///     // q == 1071
+  ///     // r == 757
+  ///
+  /// - Parameter rhs: The value to divide this value by.
+  /// - Returns: A tuple containing the quotient and remainder of this value
+  ///   divided by `rhs`.
+  func quotientAndRemainder(dividingBy rhs: Self)
+    -&gt; (quotient: Self, remainder: Self)
+
+  /// Returns `-1` if this value is negative and `1` if it's positive;
+  /// otherwise, `0`.
+  ///
+  /// - Returns: The sign of this number, expressed as an integer of the same
+  ///   type.
+  func signum() -&gt; Self
+}
+
+extension BinaryInteger {
+  init() { self = 0 }
+}
+</code></pre><h4 id="fixedwidthinteger"> <a href="#fixedwidthinteger" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> <code class="highlighter-rouge">FixedWidthInteger</code> </h4> <p>The <code class="highlighter-rouge">FixedWidthInteger</code> protocol adds the notion of endianness as well as static properties for type bounds and bit width.</p> <p>The <code class="highlighter-rouge">ReportingOverflow</code> family of methods is used in default implementations of mutating arithmetic methods (see the <code class="highlighter-rouge">Numeric</code> protocol). Having these methods allows the library to provide both bounds-checked and masking implementations of arithmetic operations, without duplicating code.</p> <p>The <code class="highlighter-rouge">multipliedFullWidth(by:)</code> and <code class="highlighter-rouge">dividingFullWidth(_:)</code> methods are necessary building blocks to implement support for integer types of a greater width such as arbitrary-precision integers.</p><pre><code class="language-Swift">
+public protocol FixedWidthInteger : BinaryInteger {
+  /// The number of bits used for the underlying binary representation of
+  /// values of this type.
+  ///
+  /// An unsigned, fixed-width integer type can represent values from 0 through
+  /// `(2 ** bitWidth) - 1`, where `**` is exponentiation. A signed,
+  /// fixed-width integer type can represent values from
+  /// `-(2 ** bitWidth - 1)` through `(2 ** bitWidth - 1) - 1`. For example,
+  /// the `Int8` type has a `bitWidth` value of 8 and can store any integer in
+  /// the range `-128...127`.
+  static var bitWidth : Int { get }
+
+  /// The maximum representable integer in this type.
+  ///
+  /// For unsigned integer types, this value is `(2 ** bitWidth) - 1`, where
+  /// `**` is exponentiation. For signed integer types, this value is
+  /// `(2 ** bitWidth - 1) - 1`.
+  static var max: Self { get }
+
+  /// The minimum representable value.
+  ///
+  /// For unsigned integer types, this value is always `0`. For signed integer
+  /// types, this value is `-(2 ** bitWidth - 1)`, where `**` is
+  /// exponentiation.
+  static var min: Self { get }
+
+  /// Returns the sum of this value and the given value along with a flag
+  /// indicating whether overflow occurred in the operation.
+  ///
+  /// - Parameter other: The value to add to this value.
+  /// - Returns: A tuple containing the result of the addition along with a
+  ///   flag indicating whether overflow occurred. If the `overflow` component
+  ///   is `.none`, the `partialValue` component contains the entire sum. If
+  ///   the `overflow` component is `.overflow`, an overflow occurred and the
+  ///   `partialValue` component contains the truncated sum of this value and
+  ///   `other`.
+  ///
+  /// - SeeAlso: `+`
+  func addingReportingOverflow(_ other: Self)
+    -&gt; (partialValue: Self, overflow: Bool)
+
+  /// Returns the difference of this value and the given value along with a
+  /// flag indicating whether overflow occurred in the operation.
+  ///
+  /// - Parameter other: The value to subtract from this value.
+  /// - Returns: A tuple containing the result of the subtraction along with a
+  ///   flag indicating whether overflow occurred. If the `overflow` component
+  ///   is `.none`, the `partialValue` component contains the entire
+  ///   difference. If the `overflow` component is `.overflow`, an overflow
+  ///   occurred and the `partialValue` component contains the truncated
+  ///   result of `other` subtracted from this value.
+  ///
+  /// - SeeAlso: `-`
+  func subtractingReportingOverflow(_ other: Self)
+    -&gt; (partialValue: Self, overflow: Bool)
+
+  /// Returns the product of this value and the given value along with a flag
+  /// indicating whether overflow occurred in the operation.
+  ///
+  /// - Parameter other: The value to multiply by this value.
+  /// - Returns: A tuple containing the result of the multiplication along with
+  ///   a flag indicating whether overflow occurred. If the `overflow`
+  ///   component is `.none`, the `partialValue` component contains the entire
+  ///   product. If the `overflow` component is `.overflow`, an overflow
+  ///   occurred and the `partialValue` component contains the truncated
+  ///   product of this value and `other`.
+  ///
+  /// - SeeAlso: `*`, `multipliedFullWidth(by:)`
+  func multipliedReportingOverflow(by other: Self)
+    -&gt; (partialValue: Self, overflow: Bool)
+
+  /// Returns the quotient of dividing this value by the given value along with
+  /// a flag indicating whether overflow occurred in the operation.
+  ///
+  /// For a value `x`, if zero is passed as `other`, the result is
+  /// `(x, .overflow)`.
+  ///
+  /// - Parameter other: The value to divide this value by.
+  /// - Returns: A tuple containing the result of the division along with a
+  ///   flag indicating whether overflow occurred. If the `overflow` component
+  ///   is `.none`, the `partialValue` component contains the entire quotient.
+  ///   If the `overflow` component is `.overflow`, an overflow occurred and
+  ///   the `partialValue` component contains the truncated quotient.
+  ///
+  /// - SeeAlso: `/`, `dividingFullWidth(_:)`
+  func dividedReportingOverflow(by other: Self)
+    -&gt; (partialValue: Self, overflow: Bool)
+
+  /// Returns a double-width value containing the high and low parts of the
+  /// result of multiplying this value by an argument.
+  ///
+  /// Use this method to calculate the full result of a product that would
+  /// otherwise overflow. Unlike traditional truncating multiplication, the
+  /// `multipliedFullWidth(by:)` method returns both the high and low
+  /// parts of the product of `self` and `other`. The following example uses
+  /// this method to multiply two `UInt8` values that normally overflow when
+  /// multiplied:
+  ///
+  ///     let x: UInt8 = 100
+  ///     let y: UInt8 = 20
+  ///     let result = x.multipliedFullWidth(by: y)
+  ///     // result.high == 0b00000111
+  ///     // result.low  == 0b11010000
+  ///
+  /// The product of `x` and `y` is 2000, which is too large to represent in a
+  /// `UInt8` instance. The `high` and `low` components of the `result`
+  /// represent 2000 when concatenated to form a double-width integer; that
+  /// is, using `result.high` as the high byte and `result.low` as the low byte
+  /// of a `UInt16` instance.
+  ///
+  ///     let z = UInt16(result.high) &lt;&lt; 8 | UInt16(result.low)
+  ///     // z == 2000
+  ///
+  /// - Parameters:
+  ///   - other: A value to multiplied `self` by.
+  /// - Returns: A tuple containing the high and low parts of the result of
+  ///   multiplying `self` and `other`.
+  ///
+  /// - SeeAlso: `multipliedReportingOverflow(by:)`
+  func multipliedFullWidth(by other: Self) -&gt; DoubleWidth&lt;Self&gt;
+
+  /// Returns a tuple containing the quotient and remainder of dividing the
+  /// first argument by this value.
+  ///
+  /// The resulting quotient must be representable within the bounds of the
+  /// type. If the quotient of dividing `lhs` by `self` is too large to
+  /// represent in the type, a runtime error may occur.
+  ///
+  /// - Parameters:
+  ///   - lhs: A value containing the high and low parts of a double-width
+  ///     integer. The `high` component of the tuple carries the sign, if the
+  ///     type is signed.
+  /// - Returns: A tuple containing the quotient and remainder of `lhs` divided
+  ///   by `self`.
+  func dividingFullWidth(_ lhs: DoubleWidth&lt;Self&gt;)
+    -&gt; (quotient: Self, remainder: Self)
+
+  /// The number of bits equal to 1 in this value's binary representation.
+  ///
+  /// For example, in a fixed-width integer type with a `bitWidth` value of 8,
+  /// the number 31 has five bits equal to 1.
+  ///
+  ///     let x: Int8 = 0b0001_1111
+  ///     // x == 31
+  ///     // x.populationCount == 5
+  var populationCount: Int { get }
+
+  /// The number of leading zeros in this value's binary representation.
+  ///
+  /// For example, in a fixed-width integer type with a `bitWidth` value of 8,
+  /// the number 31 has three leading zeros.
+  ///
+  ///     let x: Int8 = 0b0001_1111
+  ///     // x == 31
+  ///     // x.leadingZeroBits == 3
+  /// - SeeAlso: `BinaryInteger.trailingZeroBits`
+  var leadingZeroBits: Int { get }
+
+  /// Creates an integer from its big-endian representation, changing the
+  /// byte order if necessary.
+  init(bigEndian value: Self)
+
+  /// Creates an integer from its little-endian representation, changing the
+  /// byte order if necessary.
+  init(littleEndian value: Self)
+
+  /// The big-endian representation of this integer.
+  ///
+  /// If necessary, the byte order of this value is reversed from the typical
+  /// byte order of this integer type. On a big-endian platform, for any
+  /// integer `x`, `x == x.bigEndian`.
+  ///
+  /// - SeeAlso: `littleEndian`
+  var bigEndian: Self { get }
+
+  /// The little-endian representation of this integer.
+  ///
+  /// If necessary, the byte order of this value is reversed from the typical
+  /// byte order of this integer type. On a little-endian platform, for any
+  /// integer `x`, `x == x.littleEndian`.
+  ///
+  /// - SeeAlso: `bigEndian`
+  var littleEndian: Self { get }
+
+  /// A representation of this integer with the byte order swapped.
+  var byteSwapped: Self { get }
+
+
+  /// Returns the result of shifting a value's binary representation the
+  /// specified number of digits to the right, masking the shift amount to the
+  /// type's bit width.
+  static func &amp;&gt;&gt;(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Calculates the result of shifting a value's binary representation the
+  /// specified number of digits to the right, masking the shift amount to the
+  /// type's bit width, and stores the result in the left-hand-side variable.
+  static func &amp;&gt;&gt;=(_ lhs: inout Self, _ rhs: Self)
+  
+  /// Returns the result of shifting a value's binary representation the
+  /// specified number of digits to the left, masking the shift amount to the
+  /// type's bit width.
+  static func &amp;&lt;&lt;(_ lhs: Self, _ rhs: Self) -&gt; Self
+
+  /// Returns the result of shifting a value's binary representation the
+  /// specified number of digits to the left, masking the shift amount to the
+  /// type's bit width, and stores the result in the left-hand-side variable.
+  static func &amp;&lt;&lt;=(_ lhs: inout Self, _ rhs: Self)
+}
+</code></pre><h4 id="auxiliary-protocols"> <a href="#auxiliary-protocols" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Auxiliary protocols </h4><pre><code class="language-Swift">public protocol UnsignedInteger : BinaryInteger {
+  associatedtype Magnitude : BinaryInteger
+}
+public protocol SignedInteger : BinaryInteger, SignedNumeric {
+  associatedtype Magnitude : BinaryInteger
+}
+</code></pre><h3 id="doublewidtht"> <a href="#doublewidtht" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> DoubleWidth&lt;T&gt; </h3> <p>The <code class="highlighter-rouge">DoubleWidth&lt;T&gt;</code> type allows to create wider fixed-width integer types from the ones available in the standard library.</p> <p>Standard library currently provides fixed-width integer types of up to 64 bits. A value of <code class="highlighter-rouge">DoubleWidth&lt;Int64&gt;</code> will double the range of the underlying type and implement all the <code class="highlighter-rouge">FixedWidthInteger</code> requirements. <em>Please note</em> though that the implementation will not necessarily be the most efficient one, so it would not be a good idea to use <code class="highlighter-rouge">DoubleWidth&lt;Int32&gt;</code> instead of a built-in <code class="highlighter-rouge">Int64</code>.</p> <div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DoubleWidth</span><span class="o">&lt;</span><span class="kt">T</span> <span class="p">:</span> <span class="kt">FixedWidthInteger</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="o">.</span><span class="nf">parts</span><span class="p">(</span><span class="nv">high</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">low</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="kt">Magnitude</span><span class="p">)</span>
+
+  <span class="kd">public</span> <span class="k">var</span> <span class="nv">high</span><span class="p">:</span> <span class="kt">T</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+  <span class="kd">public</span> <span class="k">var</span> <span class="nv">low</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="kt">Magnitude</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>Representing it as an <code class="highlighter-rouge">enum</code> instead of a simple struct allows to use it both as a single value, as well as in destructuring matches.</p> <div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">high</span> <span class="o">=</span> <span class="n">doubleWidthValue</span><span class="o">.</span><span class="n">high</span>
+<span class="k">let</span> <span class="nv">low</span> <span class="o">=</span> <span class="n">doubleWidthValue</span><span class="o">.</span><span class="n">low</span>
+
+<span class="c1">// or</span>
+
+<span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="nv">high</span><span class="p">,</span> <span class="nv">low</span><span class="p">)</span> <span class="o">=</span> <span class="n">doubleWidthValue</span>
+</code></pre></div></div> <h3 id="extra-operators"> <a href="#extra-operators" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Extra operators </h3> <p>In addition to the operators described in the <a href="#protocols">protocols section</a>, we also provide a few extensions:</p> <h4 id="non-mutating-homogeneous-shifts"> <a href="#non-mutating-homogeneous-shifts" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Non-mutating homogeneous shifts </h4><pre><code class="language-Swift">extension FixedWidthInteger {
+  public static func &amp;&gt;&gt; (lhs: Self, rhs: Self) -&gt; Self
+  public static func &amp;&lt;&lt; (lhs: Self, rhs: Self) -&gt; Self
+</code></pre><h4 id="heterogeneous-shifts"> <a href="#heterogeneous-shifts" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Heterogeneous shifts </h4><pre><code class="language-Swift">extension BinaryInteger {
+  // 'Smart' shifts
+  static func &gt;&gt;  &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Self
+  static func &gt;&gt;= &lt;Other : BinaryInteger&gt;(lhs: inout Self, rhs: Other)
+  static func &lt;&lt;  &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Self
+  static func &lt;&lt;= &lt;Other : BinaryInteger&gt;(lhs: inout Self, rhs: Other)
+}
+extension FixedWidthInteger {
+  public static func &amp;&gt;&gt; &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Self
+  public static func &amp;&gt;&gt;= &lt;Other : BinaryInteger&gt;(lhs: inout Self, rhs: Other)
+  public static func &amp;&lt;&lt; &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Self
+  public static func &amp;&lt;&lt;= &lt;Other : BinaryInteger&gt;(lhs: inout Self, rhs: Other)
+}
+</code></pre><h4 id="heterogeneous-equality-and-comparison"> <a href="#heterogeneous-equality-and-comparison" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Heterogeneous equality and comparison </h4><pre><code class="language-Swift">extension BinaryInteger {
+  // Equality
+  static func == &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+  static func != &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+
+  // Comparison
+  static func &lt;  &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+  static func &lt;= &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+  static func &gt;  &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+  static func &gt;= &lt;Other : BinaryInteger&gt;(lhs: Self, rhs: Other) -&gt; Bool
+}
+</code></pre><h4 id="masking-arithmetic"> <a href="#masking-arithmetic" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Masking arithmetic </h4><pre><code class="language-Swift">public func &amp;* &lt;T: FixedWidthInteger&gt;(lhs: T, rhs: T) -&gt; T
+public func &amp;- &lt;T: FixedWidthInteger&gt;(lhs: T, rhs: T) -&gt; T
+public func &amp;+ &lt;T: FixedWidthInteger&gt;(lhs: T, rhs: T) -&gt; T
+</code></pre><h2 id="non-goals"> <a href="#non-goals" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Non-goals </h2> <p>This proposal:</p> <ul> <li> <p><em>DOES NOT</em> solve the integer promotion problem, which would allow mixed-type arithmetic. However, we believe that it is an important step in the right direction.</p> </li> <li> <p><em>DOES NOT</em> include the implementation of a <code class="highlighter-rouge">BigInt</code> type, but allows it to be implemented in the future.</p> </li> </ul> <h2 id="source-compatibility"> <a href="#source-compatibility" class="anchor-heading"><svg class="d-inline-block v-align-middle" viewBox="0 0 16 16" version="1.1" width="18" height="18" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a> Source compatibility </h2> <p>The proposed change is designed to be as non-breaking as possible, and it has been proven that it does not break code on concrete integer types. However, there are still a few API breaking changes in the realm of generic code:</p> <ul> <li> <p>Integer protocols in Swift up to and including version 3 were not particularly useful for generic programming, but were rather a means of sharing implementation between conforming types. Therefore we believe the amount of code that relied on these protocols is relatively small. The breakage can be further reduced by introducing proper aliases for the removed protocols with deprecation warnings.</p> </li> <li> <p>Deprecation of the <code class="highlighter-rouge">BitwiseOperations</code> protocol. We find it hard to imagine a type that conforms to this protocol, but is <em>not</em> a binary integer type.</p> </li> <li> <p>Addition of ‘smart’ shifts will change the behavior of existing code. It will still compile, but will be potentially less performant due to extra logic involved. In a case, where this becomes a problem, newly introduced masking shift operators can be used instead. Unfortunately, performance characteristics of the code cannot be statically checked, and thus migration cannot be provided.</p> </li> </ul> </div> </div> </div> </div> </body> </html>
